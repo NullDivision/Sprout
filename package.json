@@ -1,0 +1,44 @@
+{
+  "name": "sprout",
+  "version": "0.1.0",
+  "description": "A generic tree view application",
+  "main": "index.js",
+  "scripts": {
+    "build": "npm run watch:js & npm run watch:css",
+    "lint": "eslint ./src && flow check",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "watch:css": "sass -w ./src/styles/main.scss:./stem/main.css",
+    "watch:js": "watchify ./src/stem/main.jsx -t babelify -o 'exorcist ./stem/main.js.map > ./stem/main.js' -dv"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/NullDivision/Sprout.git"
+  },
+  "keywords": [
+    "tree-view",
+    "data",
+    "visualization"
+  ],
+  "author": "NullDivision",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/NullDivision/Sprout/issues"
+  },
+  "homepage": "https://github.com/NullDivision/Sprout#readme",
+  "devDependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.10.3",
+    "babel-plugin-transform-flow-comments": "^6.8.0",
+    "babel-plugin-transform-react-jsx": "^6.8.0",
+    "babelify": "^7.3.0",
+    "eslint": "^3.1.0",
+    "eslint-plugin-react": "^5.2.2",
+    "exorcist": "^0.4.0",
+    "material-ui": "^0.15.2",
+    "react": "^15.2.1",
+    "react-dom": "^15.2.1",
+    "react-redux": "^4.4.5",
+    "react-tap-event-plugin": "^1.0.0",
+    "redux": "^3.5.2",
+    "watchify": "^3.7.0"
+  }
+}
