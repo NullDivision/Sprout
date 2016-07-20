@@ -4,4 +4,4 @@
  * @flow
  */
 
-exports.default = function reducer() {};
+export default function reducer() {};

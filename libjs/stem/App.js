@@ -13,4 +13,4 @@ const App = function() {
   return <MuiThemeProvider><AppBar /></MuiThemeProvider>;
 };
 
-exports.default = connect()(App);
+export default connect()(App);

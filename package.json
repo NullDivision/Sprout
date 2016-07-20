@@ -4,11 +4,8 @@
   "description": "A generic tree view application",
   "main": "index.js",
   "scripts": {
-    "build": "npm run watch:js & npm run watch:css",
     "lint": "eslint ./src && flow check",
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "watch:css": "sass -w ./src/styles/main.scss:./stem/main.css",
-    "watch:js": "watchify ./src/stem/main.jsx -t babelify -o 'exorcist ./stem/main.js.map > ./stem/main.js' -dv"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -32,7 +29,6 @@
     "babelify": "^7.3.0",
     "eslint": "^3.1.0",
     "eslint-plugin-react": "^5.2.2",
-    "exorcist": "^0.4.0",
     "material-ui": "^0.15.2",
     "react": "^15.2.1",
     "react-dom": "^15.2.1",
@@ -40,5 +36,23 @@
     "react-tap-event-plugin": "^1.0.0",
     "redux": "^3.5.2",
     "watchify": "^3.7.0"
+  },
+  "jspm": {
+    "directories": {
+      "baseURL": "libjs"
+    },
+    "dependencies": {
+      "material-ui": "npm:material-ui@^0.15.2",
+      "react": "npm:react@^15.2.1",
+      "react-dom": "npm:react-dom@^15.2.1",
+      "react-redux": "npm:react-redux@^4.4.5",
+      "react-tap-event-plugin": "npm:react-tap-event-plugin@^1.0.0",
+      "redux": "npm:redux@^3.5.2"
+    },
+    "devDependencies": {
+      "babel": "npm:babel-core@^5.8.24",
+      "babel-runtime": "npm:babel-runtime@^5.8.24",
+      "core-js": "npm:core-js@^1.1.4"
+    }
   }
 }
