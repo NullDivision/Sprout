@@ -14,7 +14,6 @@ require('spdy')
     const pushables = ['/jspm_packages/system.js', '/jspm_packages/system.js.map', '/config.js'];
 
     // do not push files served through push again
-    console.log(req.url);
     if (pushables.includes(req.url)) {
       console.error('Trying to resolve pushable...');
       return;
@@ -23,14 +22,7 @@ require('spdy')
     if (req.url.startsWith('/jspm_packages')) {
       let properFile = req.url.replace('jsx.js', 'jsx');
 
-      res.writeHead(200);
-      res.end(fs.readFileSync('./libjs' + properFile));
-      return;
-    }
-
-    if (req.url.endsWith('.js') || req.url.endsWith('.js.map')) {
-      let properFile = req.url.replace('jsx.js', 'jsx');
-
+      // console.log(`Delivering JSPM file '${properFile}'`);
       res.writeHead(200);
       res.end(fs.readFileSync('./libjs' + properFile));
       return;
@@ -38,8 +30,9 @@ require('spdy')
 
     res.push('/jspm_packages/system.js', {response: {}}).end(fs.readFileSync('./libjs/jspm_packages/system.js'));
     res.push('/jspm_packages/system.js.map', {response: {}}).end(fs.readFileSync('./libjs/jspm_packages/system.js.map'));
+    res.push('/main.js', {response: {}}).end(fs.readFileSync('./libjs/main.js'));
+    res.push('/main.js.map', {response: {}}).end(fs.readFileSync('./libjs/main.js.map'));
     res.push('/config.js', {response: {}}).end(fs.readFileSync('./libjs/config.js'));
-    res.push('/sfx.js', {response: {}}).end(fs.readFileSync('./libjs/sfx.js'));
 
     res.writeHead(200);
     res.end(
@@ -50,10 +43,11 @@ require('spdy')
 
           <script src="jspm_packages/system.js"></script>
           <script src="config.js"></script>
+          <script src="main.js"></script>
         </head>
 
         <div id="root"></div>
-        <script>SystemJS.import('../sfx')</script>
+        <script>SystemJS.import('stem/main.js')</script>
       `
     );
   })
