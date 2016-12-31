@@ -5,56 +5,35 @@
  */
 
 const fs = require('fs');
+const path = require('path');
+
+const baseURL = '/';
 const config = require('../config/server.json');
 
 console.log('Starting HTTPS/2.0 server on port ' + config.port + '...');
 console.log('Access server locally at https://localhost:' + config.port);
 require('spdy')
   .createServer({key: fs.readFileSync('./sprout-key.pem'), cert: fs.readFileSync('./sprout-cert.pem')}, (req, res) => {
-    const pushables = ['/jspm_packages/system.js', '/jspm_packages/system.js.map', '/config.js'];
+    // last state returns first option
+    var file = '../index.html';
+    var data;
+    var filePath;
 
-    // do not push files served through push again
-    console.log(req.url);
-    if (pushables.includes(req.url)) {
-      console.error('Trying to resolve pushable...');
-      return;
+    if (req.url !== baseURL) {
+      file = '../libjs/' + req.url;
     }
 
-    if (req.url.startsWith('/jspm_packages')) {
-      let properFile = req.url.replace('jsx.js', 'jsx');
+    filePath = path.join(__dirname, file);
+
+    try {
+      data = fs.readFileSync(filePath);
 
       res.writeHead(200);
-      res.end(fs.readFileSync('./libjs' + properFile));
-      return;
+    } catch(e) {
+      console.error(`Could not resolve path ${filePath}`);
+      res.writeHead(404);
     }
 
-    if (req.url.endsWith('.js') || req.url.endsWith('.js.map')) {
-      let properFile = req.url.replace('jsx.js', 'jsx');
-
-      res.writeHead(200);
-      res.end(fs.readFileSync('./libjs' + properFile));
-      return;
-    }
-
-    res.push('/jspm_packages/system.js', {response: {}}).end(fs.readFileSync('./libjs/jspm_packages/system.js'));
-    res.push('/jspm_packages/system.js.map', {response: {}}).end(fs.readFileSync('./libjs/jspm_packages/system.js.map'));
-    res.push('/config.js', {response: {}}).end(fs.readFileSync('./libjs/config.js'));
-    res.push('/sfx.js', {response: {}}).end(fs.readFileSync('./libjs/sfx.js'));
-
-    res.writeHead(200);
-    res.end(
-      `
-        <head>
-          <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500" rel="stylesheet" type="text/css" />
-          <link href="/main.css" rel="stylesheet" type="text/css" />
-
-          <script src="jspm_packages/system.js"></script>
-          <script src="config.js"></script>
-        </head>
-
-        <div id="root"></div>
-        <script>SystemJS.import('../sfx')</script>
-      `
-    );
+    res.end(data);
   })
   .listen(config.port);
