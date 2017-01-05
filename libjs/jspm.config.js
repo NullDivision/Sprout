@@ -12,7 +12,8 @@ SystemJS.config({
       "babel-runtime": "npm:babel-runtime@5.8.38",
       "core-js": "npm:core-js@2.4.1",
       "plugin-babel": "npm:systemjs-plugin-babel@0.0.17",
-      "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@6.8.0"
+      "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@6.8.0",
+      "babel-plugin-transform-flow-comments": "npm:babel-plugin-transform-flow-comments@6.21.0"
     },
     "packages": {
       "npm:babel-runtime@5.8.38": {
@@ -46,6 +47,12 @@ SystemJS.config({
           "esutils": "npm:esutils@2.0.2",
           "lodash": "npm:lodash@4.17.3"
         }
+      },
+      "npm:babel-plugin-transform-flow-comments@6.21.0": {
+        "map": {
+          "babel-plugin-syntax-flow": "npm:babel-plugin-syntax-flow@6.18.0",
+          "babel-runtime": "npm:babel-runtime@6.20.0"
+        }
       }
     }
   },
@@ -64,6 +71,7 @@ SystemJS.config({
         "*.js": {
           "babelOptions": {
             "plugins": [
+              "babel-plugin-transform-flow-comments",
               "babel-plugin-transform-react-jsx"
             ]
           }

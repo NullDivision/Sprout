@@ -4,6 +4,7 @@
   "description": "A generic tree view application",
   "main": "main.js",
   "scripts": {
+    "develop": "node index.js && sass --watch src/styles:assets",
     "lint": "eslint ./src && flow check",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -44,6 +45,7 @@
       "react-redux": "npm:react-redux@^4.4.5"
     },
     "devDependencies": {
+      "babel-plugin-transform-flow-comments": "npm:babel-plugin-transform-flow-comments@^6.21.0",
       "babel-plugin-transform-react-jsx": "npm:babel-plugin-transform-react-jsx@^6.8.0",
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^2.4.1",

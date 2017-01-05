@@ -5,14 +5,13 @@
  */
 
 import React from 'react';
-import {createStore} from 'redux';
 import {Provider} from 'react-redux';
 import ReactDOM from 'react-dom';
 
 import App from './App';
-import reducers from './reducers';
+import store from './store';
 
 ReactDOM.render(
-  <Provider store={createStore(reducers)}><App /></Provider>,
+  <Provider store={store}><App /></Provider>,
   document.getElementById('root')
 );

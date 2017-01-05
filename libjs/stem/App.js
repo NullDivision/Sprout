@@ -7,8 +7,18 @@
 import React from 'react';
 import {connect} from 'react-redux';
 
-const App = function() {
-  return null;
+import actions from './actions';
+
+class App extends React.Component {
+  componentWillMount() {
+    this.props.onLoad();
+  }
+
+  props: { onLoad: typeof actions.getNodes };
+
+  render() {
+    return null;
+  }
 };
 
-export default connect()(App);
+export default connect(undefined, () => ({ onLoad: actions.getNodes }))(App);
